@@ -63,7 +63,8 @@ class ScatterPlotGenerator:
         self.root = root
         self.root.title("Data Analysis Scatter Plot Generator")
         self.root.geometry("1150x750")
-        self.root.resizable(True, True)
+        # self.root.resizable(True, True)
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.data_settings = DataGroupSettings()
         self.current_data_group = None
         self.station_var = tk.StringVar(value="both")
@@ -80,6 +81,11 @@ class ScatterPlotGenerator:
         self.file_prefix_vars = {}
         self.point_size_displays = {}
         self.create_widgets()
+
+    def on_close(self):
+        plt.close('all')
+        self.root.destroy()
+        sys.exit(0)
 
     def create_widgets(self):
         main_frame = ttk.Frame(self.root, padding="10")
